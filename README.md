@@ -36,5 +36,3 @@ docker-compose up --build -d
 ```
 
 **If you want to develop backend/frontend and see the live service by any change, please read [Live-Development](live-development/)**
-
-#### Owner : @sharifzadeh
