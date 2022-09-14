@@ -1,0 +1,11 @@
+export const EvaluationTypeKind = {
+    MANUAL: 'MA',
+    LEAD_TIME: 'LT',
+    DEPLOYMENT_FREQUENCY: 'DF',
+    TIME_TO_RESTORE: 'TR',
+    CHANGE_FAILURE_RATE: 'CF',
+    TEST_COVERAGE: 'TC',
+    INCREMENTAL_TEST_COVERAGE: 'ITC',
+    IS_TEST_COVERAGE_CALCULATED: 'ITCC',
+    DORY: 'DORY'
+}

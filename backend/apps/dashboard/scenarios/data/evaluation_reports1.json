@@ -1,0 +1,23 @@
+[
+    {
+        "project": "project1",
+        "maturity_model_item": { "maturity_model": "Model 1", "code": "1-1" },
+        "reporter": "admin",
+        "status": "F",
+        "description": "That's it!"
+    },
+    {
+        "project": "project1",
+        "maturity_model_item": { "maturity_model": "Model 1", "code": "1-2" },
+        "reporter": "admin",
+        "status": "P",
+        "current_value": "100"
+    },
+    {
+        "project": "project1",
+        "maturity_model_item": { "maturity_model": "Model 1", "code": "2-1" },
+        "reporter": "admin",
+        "status": "F",
+        "current_value": "101"
+    }
+]

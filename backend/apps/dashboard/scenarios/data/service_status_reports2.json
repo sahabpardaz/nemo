@@ -1,0 +1,27 @@
+[
+    {
+        "environment": { "project": "Beta", "name": "staging" },
+        "status": "U",
+        "time": "2021-01-21T09:00:00.000000+03:30"
+    },
+    {
+        "environment": { "project": "Beta", "name": "staging" },
+        "status": "D",
+        "time": "2021-02-22T09:00:00.000000+03:30"
+    },
+    {
+        "environment": { "project": "Beta", "name": "staging" },
+        "status": "D",
+        "time": "2021-02-22T10:00:00.000000+03:30"
+    },
+    {
+        "environment": { "project": "Beta", "name": "staging" },
+        "status": "U",
+        "time": "2021-02-22T11:00:00.000000+03:30"
+    },
+    {
+        "environment": { "project": "Beta", "name": "staging" },
+        "status": "D",
+        "time": "2021-02-25T09:00:00.000000+03:30"
+    }
+]

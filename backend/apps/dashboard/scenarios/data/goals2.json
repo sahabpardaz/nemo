@@ -1,0 +1,10 @@
+{
+    "goal1": {
+        "project": "Beta",
+        "maturity_model_items": [
+            { "maturity_model": "Qualitic Quality Maturity Model", "code": "T016" }
+        ],
+        "due_date": -10,
+        "creator": "admin"
+    }
+}

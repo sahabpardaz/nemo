@@ -1,0 +1,9 @@
+[
+    {
+        "project": "Beta",
+        "maturity_model_item": { "maturity_model": "Qualitic Quality Maturity Model", "code": "B001" },
+        "reporter": "admin",
+        "status": "P",
+        "description": "Well done!"
+    }
+]

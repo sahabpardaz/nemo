@@ -1,0 +1,20 @@
+[
+    {
+        "project": "project1",
+        "change_list_id": "10",
+        "title": "feature 1",
+        "commit_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa10"
+    },
+    {
+        "project": "project1",
+        "change_list_id": "20",
+        "title": "fix bug",
+        "commit_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa20"
+    },
+    {
+        "project": "project1",
+        "change_list_id": "30",
+        "title": "refactor bad smells",
+        "commit_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa30"
+    }
+]

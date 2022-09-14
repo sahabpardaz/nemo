@@ -1,0 +1,33 @@
+{
+    "goal0": {
+        "project": "project1",
+        "maturity_model_items": [],
+        "due_date": -10,
+        "creator": "admin"
+    },
+    "goal1": {
+        "project": "project1",
+        "maturity_model_items": [
+            { "maturity_model": "Model 1", "code": "1-1" }
+        ],
+        "due_date": -1,
+        "creator": "admin"
+    },
+    "goal2": {
+        "project": "project1",
+        "maturity_model_items": [
+            { "maturity_model": "Model 1", "code": "1-2" }
+        ],
+        "due_date": 0,
+        "creator": "admin"
+    },
+    "goal3": {
+        "project": "project1",
+        "maturity_model_items": [
+            { "maturity_model": "Model 1", "code": "1-2" },
+            { "maturity_model": "Model 1", "code": "2-1" }
+        ],
+        "due_date": 6,
+        "creator": "admin"
+    }
+}

@@ -1,0 +1,590 @@
+{
+    "model": {
+        "name": "Qualitic Quality Maturity Model",
+        "description": "Personalized instance of Qualitic maturity model",
+        "levels": [
+            {
+                "name": "Level 1",
+                "description": "",
+                "items": [
+                    {
+                        "code": "T001",
+                        "name": "Measure Test Coverage On Commit Stage",
+                        "description": "Setup test coverage tool on commit stage tests that supports branch coverage.",
+                        "evaluation_type": {
+                            "kind": "ITCC",
+                            "validity_period_days": 1,
+                            "checking_period_days": 31
+                        },
+                        "acceptable_value": null,
+                        "acceptable_value_type": null
+                    },
+                    {
+                        "code": "T005",
+                        "name": "Incremental Commit Stage Test Coverage > 10%",
+                        "description": "Incremental Commit stage test coverage on source (Excluding tests) must be greater than 10%. Coverage must be calculated on the added code compare to the master.",
+                        "evaluation_type": {
+                            "kind": "ITC",
+                            "validity_period_days": 31,
+                            "checking_period_days": 93
+                        },
+                        "acceptable_value": "10",
+                        "acceptable_value_type": "PRC"
+                    },
+                    {
+                        "code": "B001",
+                        "name": "All CI/CD scripts are in VC (CI Config in Code)",
+                        "description": "No CI/CD script is out of version control.",
+                        "evaluation_type": {
+                            "kind": "MA",
+                            "validity_period_days": 186,
+                            "checking_period_days": 93
+                        },
+                        "acceptable_value": null,
+                        "acceptable_value_type": null
+                    },
+                    {
+                        "code": "T016",
+                        "name": "No Release with Red Tests",
+                        "description": "An automated process exists to prevent release when some tests are failed. Maybe some tests are not blocking such as exploratory tests or performance tests.",
+                        "evaluation_type": {
+                            "kind": "MA",
+                            "validity_period_days": 186,
+                            "checking_period_days": 0
+                        },
+                        "acceptable_value": null,
+                        "acceptable_value_type": null
+                    }
+                ]
+            },
+            {
+                "name": "Level 2",
+                "description": "",
+                "items": [
+                    {
+                        "code": "T006",
+                        "name": "Incremental Commit Stage Test Coverage > 50%",
+                        "description": "Incremental Commit stage test coverage on source (Excluding tests) must be greater than 50%. Coverage must be calculated on the added code compare to the master.",
+                        "evaluation_type": {
+                            "kind": "ITC",
+                            "validity_period_days": 31,
+                            "checking_period_days": 93
+                        },
+                        "acceptable_value": "50",
+                        "acceptable_value_type": "PRC"
+                    },
+                    {
+                        "code": "T002",
+                        "name": "Commit Stage Test Coverage > 10%",
+                        "description": "Commit stage test coverage on source (Excluding tests) must be greater than 10%.",
+                        "evaluation_type": {
+                            "kind": "TC",
+                            "validity_period_days": 31,
+                            "checking_period_days": 93
+                        },
+                        "acceptable_value": "10",
+                        "acceptable_value_type": "PRC"
+                    },
+                    {
+                        "code": "T007",
+                        "name": "Classify Tests as Commit, Acceptance, Performance",
+                        "description": "You can use separate stages in the continuous delivery pipeline. Commit stage tests must be run less than 10 minutes.",
+                        "evaluation_type": {
+                            "kind": "MA",
+                            "validity_period_days": 186,
+                            "checking_period_days": 0
+                        },
+                        "acceptable_value": null,
+                        "acceptable_value_type": null
+                    },
+                    {
+                        "code": "T011",
+                        "name": "Acceptance Tests For at Least One Feature Upon Main Use Cases (Fully automated in CI scripts)",
+                        "description": "Acceptance test for more than one module. Fully automated in CI scripts. Automatic test environment setup is not compulsory.",
+                        "evaluation_type": {
+                            "kind": "MA",
+                            "validity_period_days": 186,
+                            "checking_period_days": 31
+                        },
+                        "acceptable_value": null,
+                        "acceptable_value_type": null
+                    },
+                    {
+                        "code": "B002",
+                        "name": "Automated Code Style Checking",
+                        "description": "",
+                        "evaluation_type": {
+                            "kind": "MA",
+                            "validity_period_days": 186,
+                            "checking_period_days": 0
+                        },
+                        "acceptable_value": null,
+                        "acceptable_value_type": null
+                    },
+                    {
+                        "code": "B004",
+                        "name": "Prevent Compiler Warning Automatically",
+                        "description": "",
+                        "evaluation_type": {
+                            "kind": "MA",
+                            "validity_period_days": 186,
+                            "checking_period_days": 0
+                        },
+                        "acceptable_value": null,
+                        "acceptable_value_type": null
+                    },
+                    {
+                        "code": "E001",
+                        "name": "All External Dependencies for the Application Are Specified in Version Control and Managed with Tools/Scripts in Source Control.",
+                        "description": "Version in source control must be specified for all dependencies in different levels like Operating system, libraries, frameworks, etc. All dependencies must be able to be retrieved from source, unambiguously. For example: define maven dependencies version precisely.",
+                        "evaluation_type": {
+                            "kind": "MA",
+                            "validity_period_days": 186,
+                            "checking_period_days": 0
+                        },
+                        "acceptable_value": null,
+                        "acceptable_value_type": null
+                    },
+                    {
+                        "code": "E012",
+                        "name": "Do Not Store Your Secrets in Your Version Control",
+                        "description": "Injecting security and compliance into your CI/CD pipeline with a vault",
+                        "evaluation_type": {
+                            "kind": "MA",
+                            "validity_period_days": 186,
+                            "checking_period_days": 0
+                        },
+                        "acceptable_value": null,
+                        "acceptable_value_type": null
+                    },
+                    {
+                        "code": "D001",
+                        "name": "Deployment Frequency is One Per Month",
+                        "description": "For the primary application or service you work on how often does your organization deploy code?",
+                        "evaluation_type": {
+                            "kind": "DF",
+                            "validity_period_days": 14,
+                            "checking_period_days": 93
+                        },
+                        "acceptable_value": "2628000",
+                        "acceptable_value_type": "SEC"
+                    },
+                    {
+                        "code": "D005",
+                        "name": "Lead Time for Changes is Less Than Six Months.",
+                        "description": "For the primary application or service you work on, what is your lead time for changes (i.e., how long does it take to go from code commit to code successfully running in production)?",
+                        "evaluation_type": {
+                            "kind": "LT",
+                            "validity_period_days": 14,
+                            "checking_period_days": 93
+                        },
+                        "acceptable_value": "2628000",
+                        "acceptable_value_type": "SEC"
+                    },
+                    {
+                        "code": "D009",
+                        "name": "Time to Restore Service is Less Than One Month",
+                        "description": "For the primary application or service you work on, how long does it generally take to restore service when a service incident occurs (e.g., unplanned outage, service impairment)?",
+                        "evaluation_type": {
+                            "kind": "TR",
+                            "validity_period_days": 14,
+                            "checking_period_days": 93
+                        },
+                        "acceptable_value": "2628000",
+                        "acceptable_value_type": "SEC"
+                    },
+                    {
+                        "code": "D013",
+                        "name": "Change Failure Rate Less Than 60 Percent",
+                        "description": "For the primary application or service you work on, what percentage of changes results either in degraded service or subsequently requires remediation (e.g., leads to service impairment, service outage, requires a hotfix, rollback, fix forward, patch)?",
+                        "evaluation_type": {
+                            "kind": "CF",
+                            "validity_period_days": 14,
+                            "checking_period_days": 93
+                        },
+                        "acceptable_value": "60",
+                        "acceptable_value_type": "PRC"
+                    }
+                ]
+            },
+            {
+                "name": "Level 3",
+                "description": "",
+                "items": [
+                    {
+                        "code": "T003",
+                        "name": "Commit Stage Test Coverage > 20%",
+                        "description": "Commit stage test coverage on source (Excluding tests) must be greater than 20%.",
+                        "evaluation_type": {
+                            "kind": "TC",
+                            "validity_period_days": 31,
+                            "checking_period_days": 93
+                        },
+                        "acceptable_value": "20",
+                        "acceptable_value_type": "PRC"
+                    },
+                    {
+                        "code": "B005",
+                        "name": "Actively Use Available Analysis Tools On New Code As Submit Gate (50% sonar-way, Zero Issue, Incremental)",
+                        "description": "At least 50% of the sonar-way gateway must be passed. This must be implemented in pipeline.",
+                        "evaluation_type": {
+                            "kind": "MA",
+                            "validity_period_days": 186,
+                            "checking_period_days": 0
+                        },
+                        "acceptable_value": null,
+                        "acceptable_value_type": null
+                    },
+                    {
+                        "code": "T012",
+                        "name": "Acceptance Tests For Each New Feature",
+                        "description": "Acceptance test for each delivering feature.",
+                        "evaluation_type": {
+                            "kind": "MA",
+                            "validity_period_days": 31,
+                            "checking_period_days": 0
+                        },
+                        "acceptable_value": null,
+                        "acceptable_value_type": null
+                    },
+                    {
+                        "code": "T013",
+                        "name": "Requirement - Acceptance Test Mapping Coverage > 5%",
+                        "description": "There must be test mapping to requirements, so the following items is important: Requirements definition are iterative and the percentage of this should be defined based on the requirements which has been developed by dev team. Requirements is checked out by quality committee, product manager and TPM. The requirements are including non-functional requirements such as security and scalability as well. The quality of tests is checked out by quality development team. In the end, a table like Table #1 must be presented by dev team. The percentage of this item is calculated by: Implemented Requirements which own tests divided by Total Implemented Requirements",
+                        "evaluation_type": {
+                            "kind": "MA",
+                            "validity_period_days": 31,
+                            "checking_period_days": 31
+                        },
+                        "acceptable_value": null,
+                        "acceptable_value_type": null
+                    },
+                    {
+                        "code": "E002",
+                        "name": "Automated Application Deployment From Scratch",
+                        "description": "Ability to deploy the application in a provisioned environment.",
+                        "evaluation_type": {
+                            "kind": "MA",
+                            "validity_period_days": 186,
+                            "checking_period_days": 0
+                        },
+                        "acceptable_value": null,
+                        "acceptable_value_type": null
+                    },
+                    {
+                        "code": "E003",
+                        "name": "Automated Application Upgrade",
+                        "description": "Ability to update application at least in one provisioned environment where an older version of application has been already existed. Downtime, data integrity, and tests are not considered in this item.",
+                        "evaluation_type": {
+                            "kind": "MA",
+                            "validity_period_days": 186,
+                            "checking_period_days": 0
+                        },
+                        "acceptable_value": null,
+                        "acceptable_value_type": null
+                    },
+                    {
+                        "code": "E013",
+                        "name": "All Configuration In Version Control & All Production Configs From Version Control",
+                        "description": "All configuration must be stored in version control and versioned with the application.",
+                        "evaluation_type": {
+                            "kind": "MA",
+                            "validity_period_days": 186,
+                            "checking_period_days": 0
+                        },
+                        "acceptable_value": null,
+                        "acceptable_value_type": null
+                    },
+                    {
+                        "code": "E006",
+                        "name": "Data Is Migrated Using Versioned Script Only",
+                        "description": "No manual update on data or schema. All data scripts must be versioned and stored in version control.",
+                        "evaluation_type": {
+                            "kind": "MA",
+                            "validity_period_days": 186,
+                            "checking_period_days": 0
+                        },
+                        "acceptable_value": null,
+                        "acceptable_value_type": null
+                    },
+                    {
+                        "code": "D002",
+                        "name": "Deployment Frequency is One Per Week",
+                        "description": "For the primary application or service you work on how often does your organization deploy code?",
+                        "evaluation_type": {
+                            "kind": "DF",
+                            "validity_period_days": 14,
+                            "checking_period_days": 93
+                        },
+                        "acceptable_value": "604800",
+                        "acceptable_value_type": "SEC"
+                    },
+                    {
+                        "code": "D006",
+                        "name": "Lead Time for Changes is Less Than One Month",
+                        "description": "For the primary application or service you work on how often does your organization deploy code?",
+                        "evaluation_type": {
+                            "kind": "LT",
+                            "validity_period_days": 14,
+                            "checking_period_days": 93
+                        },
+                        "acceptable_value": "2628000",
+                        "acceptable_value_type": "SEC"
+                    },
+                    {
+                        "code": "D010",
+                        "name": "Time to Restore Service is Less Than One Week",
+                        "description": "For the primary application or service you work on, how long does it generally take to restore service when a service incident occurs (e.g., unplanned outage, service impairment)?",
+                        "evaluation_type": {
+                            "kind": "TR",
+                            "validity_period_days": 14,
+                            "checking_period_days": 93
+                        },
+                        "acceptable_value": "604800",
+                        "acceptable_value_type": "SEC"
+                    },
+                    {
+                        "code": "D014",
+                        "name": "Change Failure Rate Less Than 45 Percent",
+                        "description": "For the primary application or service you work on, what percentage of changes results either in degraded service or subsequently requires remediation (e.g., leads to service impairment, service outage, requires a hotfix, rollback, fix forward, patch)?",
+                        "evaluation_type": {
+                            "kind": "CF",
+                            "validity_period_days": 14,
+                            "checking_period_days": 93
+                        },
+                        "acceptable_value": "45",
+                        "acceptable_value_type": "PRC"
+                    },
+                    {
+                        "code": "E010",
+                        "name": "Same Process (Scripts) to Deploy to Every Environment",
+                        "description": "Same process, tools and scripts for deploying application to a different environment.",
+                        "evaluation_type": {
+                            "kind": "MA",
+                            "validity_period_days": 186,
+                            "checking_period_days": 0
+                        },
+                        "acceptable_value": null,
+                        "acceptable_value_type": null
+                    }
+                ]
+            },
+            {
+                "name": "Level 4",
+                "description": "",
+                "items": [
+                    {
+                        "code": "T004",
+                        "name": "Commit Stage Test Coverage > 50%",
+                        "description": "Commit stage test coverage on source (Excluding tests) must be greater than 50%.",
+                        "evaluation_type": {
+                            "kind": "TC",
+                            "validity_period_days": 31,
+                            "checking_period_days": 93
+                        },
+                        "acceptable_value": "50",
+                        "acceptable_value_type": "PRC"
+                    },
+                    {
+                        "code": "T014",
+                        "name": "Requirement - Acceptance Test Mapping Coverage > 20%",
+                        "description": "There must be test mapping to requirements, so the following items is important: Requirements definition are iterative and the percentage of this should be defined based on the requirements which has been developed by dev team. Requirements is checked out by quality committee, product manager and TPM. The requirements are including non-functional requirements such as security and scalability as well. The quality of tests is checked out by quality development team. In the end, a table like Table #1 must be presented by dev team. The percentage of this item is calculated by: Implemented Requirements which own tests divided by Total Implemented Requirements",
+                        "evaluation_type": {
+                            "kind": "MA",
+                            "validity_period_days": 31,
+                            "checking_period_days": 31
+                        },
+                        "acceptable_value": null,
+                        "acceptable_value_type": null
+                    },
+                    {
+                        "code": "B006",
+                        "name": "Actively Use Available Analysis Tools On New Code (80% sonar-way)",
+                        "description": "At least 80% of the sonar-way gateway must be passed. This must be implemented in pipeline.",
+                        "evaluation_type": {
+                            "kind": "MA",
+                            "validity_period_days": 186,
+                            "checking_period_days": 0
+                        },
+                        "acceptable_value": null,
+                        "acceptable_value_type": null
+                    },
+                    {
+                        "code": "B007",
+                        "name": "Build Environment Can Be Automatically Created From Version Control",
+                        "description": "Every process must be run from version control and automated, in case build environment needs to be recreated.",
+                        "evaluation_type": {
+                            "kind": "MA",
+                            "validity_period_days": 186,
+                            "checking_period_days": 0
+                        },
+                        "acceptable_value": null,
+                        "acceptable_value_type": null
+                    },
+                    {
+                        "code": "E004",
+                        "name": "Automated Infrastructure Provisioning From Scratch.",
+                        "description": "Automated infrastructure provisioning for at least one environment.",
+                        "evaluation_type": {
+                            "kind": "MA",
+                            "validity_period_days": 186,
+                            "checking_period_days": 0
+                        },
+                        "acceptable_value": null,
+                        "acceptable_value_type": null
+                    },
+                    {
+                        "code": "E007",
+                        "name": "Automated Data Migration While Deploying.",
+                        "description": "Data migration should be run as a part of deployment if it is needed, and it must be completely automated.",
+                        "evaluation_type": {
+                            "kind": "MA",
+                            "validity_period_days": 186,
+                            "checking_period_days": 0
+                        },
+                        "acceptable_value": null,
+                        "acceptable_value_type": null
+                    },
+                    {
+                        "code": "E005",
+                        "name": "Automated Infrastructure Upgrade",
+                        "description": "Automatic update for third party applications, such as databases. Downtime, data integrity, and testing is not considered in this item. These changes must be developed and run in pipeline.",
+                        "evaluation_type": {
+                            "kind": "MA",
+                            "validity_period_days": 186,
+                            "checking_period_days": 0
+                        },
+                        "acceptable_value": null,
+                        "acceptable_value_type": null
+                    },
+                    {
+                        "code": "D003",
+                        "name": "Deployment Frequency is One Per Day",
+                        "description": "For the primary application or service you work on how often does your organization deploy code?",
+                        "evaluation_type": {
+                            "kind": "DF",
+                            "validity_period_days": 14,
+                            "checking_period_days": 93
+                        },
+                        "acceptable_value": "86400",
+                        "acceptable_value_type": "SEC"
+                    },
+                    {
+                        "code": "D007",
+                        "name": "Lead Time for Changes is Less Than One Week",
+                        "description": "For the primary application or service you work on how often does your organization deploy code?",
+                        "evaluation_type": {
+                            "kind": "LT",
+                            "validity_period_days": 14,
+                            "checking_period_days": 93
+                        },
+                        "acceptable_value": "604800",
+                        "acceptable_value_type": "SEC"
+                    },
+                    {
+                        "code": "D011",
+                        "name": "Time to Restore Service is Less Than One Day",
+                        "description": "For the primary application or service you work on, how long does it generally take to restore service when a service incident occurs (e.g., unplanned outage, service impairment)?",
+                        "evaluation_type": {
+                            "kind": "TR",
+                            "validity_period_days": 14,
+                            "checking_period_days": 93
+                        },
+                        "acceptable_value": "86400",
+                        "acceptable_value_type": "SEC"
+                    },
+                    {
+                        "code": "D015",
+                        "name": "Change Failure Rate Less Than 15 Percent",
+                        "description": "For the primary application or service you work on, what percentage of changes results either in degraded service or subsequently requires remediation (e.g., leads to service impairment, service outage, requires a hotfix, rollback, fix forward, patch)?",
+                        "evaluation_type": {
+                            "kind": "CF",
+                            "validity_period_days": 14,
+                            "checking_period_days": 93
+                        },
+                        "acceptable_value": "15",
+                        "acceptable_value_type": "PRC"
+                    }
+                ]
+            },
+            {
+                "name": "Level 5",
+                "description": "",
+                "items": [
+                    {
+                        "code": "T015",
+                        "name": "Requirement - Acceptance Test Mapping Coverage > 50%",
+                        "description": "There must be test mapping to requirements, so the following items is important: Requirements definition are iterative and the percentage of this should be defined based on the requirements which has been developed by dev team. Requirements is checked out by quality committee, product manager and TPM. The requirements are including non-functional requirements such as security and scalability as well. The quality of tests is checked out by quality development team. In the end, a table like Table #1 must be presented by dev team. The percentage of this item is calculated by: Implemented Requirements which own tests divided by Total Implemented Requirements",
+                        "evaluation_type": {
+                            "kind": "MA",
+                            "validity_period_days": 31,
+                            "checking_period_days": 31
+                        },
+                        "acceptable_value": null,
+                        "acceptable_value_type": null
+                    },
+                    {
+                        "code": "E008",
+                        "name": "Data Migration Is Tested",
+                        "description": "Data migration validation is compulsory after upgrading process, for at least one environment.",
+                        "evaluation_type": {
+                            "kind": "MA",
+                            "validity_period_days": 186,
+                            "checking_period_days": 0
+                        },
+                        "acceptable_value": null,
+                        "acceptable_value_type": null
+                    },
+                    {
+                        "code": "D004",
+                        "name": "Deployment Frequency Is On-Demand (Multiple Deploy Per Day).",
+                        "description": "For the primary application or service you work on how often does your organization deploy code?",
+                        "evaluation_type": {
+                            "kind": "DF",
+                            "validity_period_days": 14,
+                            "checking_period_days": 93
+                        },
+                        "acceptable_value": "28800",
+                        "acceptable_value_type": "SEC"
+                    },
+                    {
+                        "code": "D008",
+                        "name": "Lead Time for Changes is Less Than one Hour",
+                        "description": "For the primary application or service you work on how often does your organization deploy code?",
+                        "evaluation_type": {
+                            "kind": "LT",
+                            "validity_period_days": 14,
+                            "checking_period_days": 93
+                        },
+                        "acceptable_value": "3600",
+                        "acceptable_value_type": "SEC"
+                    },
+                    {
+                        "code": "D012",
+                        "name": "Time to Restore Service is Less Than One Hour",
+                        "description": "For the primary application or service you work on, how long does it generally take to restore service when a service incident occurs (e.g., unplanned outage, service impairment)?",
+                        "evaluation_type": {
+                            "kind": "TR",
+                            "validity_period_days": 14,
+                            "checking_period_days": 93
+                        },
+                        "acceptable_value": "3600",
+                        "acceptable_value_type": "SEC"
+                    },
+                    {
+                        "code": "E009",
+                        "name": "Ability To Automatic Data Migration Roll Back",
+                        "description": "There must be roll back strategy for each data migration.",
+                        "evaluation_type": {
+                            "kind": "MA",
+                            "validity_period_days": 186,
+                            "checking_period_days": 0
+                        },
+                        "acceptable_value": null,
+                        "acceptable_value_type": null
+                    }
+                ]
+            }
+        ]
+    }
+}

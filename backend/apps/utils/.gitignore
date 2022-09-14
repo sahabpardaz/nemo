@@ -1,0 +1,4 @@
+
+# Currently, the utils module has only testing-purpose models and their migrations are created and
+# applied on tests themselves.
+migrations/

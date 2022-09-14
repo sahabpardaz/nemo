@@ -1,0 +1,28 @@
+.itemTableRow {
+    cursor: pointer;
+}
+
+.itemTableRow:hover {
+    background: rgba(128, 128, 128, 0.1);
+}
+
+.itemDetailsFieldInlineLeft {
+    width: 50%;
+    float: left;
+    border-right: 1px solid rgba(0, 0, 0, 0.125);
+    padding-right: 10px;
+}
+
+.itemDetailsFieldInlineRight {
+    width: 50%;
+    float: left;
+    padding-left: 10px;
+}
+
+.dateColumn {
+    min-width: 100px;
+}
+
+.generalTooltip {
+    z-index: 1500 !important;
+}

@@ -1,0 +1,17 @@
+[
+    {
+        "environment": { "project": "project1", "name": "production" },
+        "change_list_id": "10",
+        "status": "F"
+    },
+    {
+        "environment": { "project": "project1", "name": "staging" },
+        "change_list_id": "20",
+        "status": "P"
+    },
+    {
+        "environment": { "project": "project1", "name": "production" },
+        "change_list_id": "10",
+        "status": "P"
+    }
+]

@@ -1,0 +1,57 @@
+# Nemo Gitlab CI Documentation
+# Set these variables in Gitlab CI/CD variables: NEMO_PROJECT_ID, NEMO_PROJECT_TOKEN
+# Requirements : curl (You can use cosmintitei/bash-curl:4 docker image)
+
+
+.nemo-ci:variables:
+  variables:
+    VERSION: 1.1.0
+    BASE_URL: https://nemo.com
+
+
+# Nemo CI - Report Changelist
+# Example usage:
+#   nemo-reporter:report-changelist:
+#     extends: .nemo-ci:report-changelist
+#     stage: test
+#     only:
+#       - master
+.nemo-ci:report-changelist:
+  extends: .nemo-ci:variables
+  script:
+    - "[[ -z ${NEMO_PROJECT_TOKEN} ]] && echo 'NEMO_PROJECT_TOKEN not specified!' && exit 1"
+    - NEMO_RESPONSE_CODE=$(curl -o response.txt -w "%{http_code}" --insecure
+      -H "Content-Type:application/json" -H "NEMO-PROJECT-TOKEN:$NEMO_PROJECT_TOKEN"
+      -X POST ${BASE_URL}/api/v1/changelist-reporter/gitlab-merge-request/
+      --data "{ \"commit_hash\":\"$CI_COMMIT_SHA\" }")
+    - cat response.txt && echo status_code:$NEMO_RESPONSE_CODE && if [[ $NEMO_RESPONSE_CODE != 202 ]]; then exit 1; fi
+  allow_failure: true
+
+# Nemo CI - Report Deployment
+# Fill the DEPLOYMENT_STATUS_CMD variable With a command return P(Pass) or F(Fail)
+# Example usage:
+#   nemo-reporter:report-deployment:
+#     extends: .nemo-ci:report-deployment
+#     stage: deploy
+#     variables:
+#       DEPLOYMENT_STATUS_CMD: 'echo P'
+#     only:
+#       - master
+.nemo-ci:report-deployment:
+  extends: .nemo-ci:variables
+  variables:
+    NEMO_ENVIRONMENT_ID: overwrite-this
+    DEPLOYMENT_STATUS_CMD: overwrite-this
+  after_script:
+    - "[[ -z ${NEMO_PROJECT_ID} ]] && echo 'NEMO_PROJECT_ID not specified!' && exit 1"
+    - "[[ \"${NEMO_ENVIRONMENT_ID}\" == \"overwrite-this\" ]] && echo 'NEMO_ENVIRONMENT_ID not specified!' && exit 1"
+    - "[[ -z ${NEMO_PROJECT_TOKEN} ]] && echo 'NEMO_PROJECT_TOKEN not specified!' && exit 1"
+    - "[[ \"${DEPLOYMENT_STATUS_CMD}\" == \"overwrite-this\" ]] && echo 'DEPLOYMENT_STATUS_CMD not specified!' && exit 1"
+    - DEPLOYMENT_STATUS=$(eval $DEPLOYMENT_STATUS_CMD)
+    - "! echo ${DEPLOYMENT_STATUS} | grep -Eq '(P|F)' && echo 'DEPLOYMENT_STATUS must be P or F' && exit 1"
+    - NEMO_RESPONSE_CODE=$(curl -o response.txt -w "%{http_code}" --insecure
+      -H "Content-Type:application/json" -H "NEMO-PROJECT-TOKEN:$NEMO_PROJECT_TOKEN"
+      -X POST ${BASE_URL}/api/v1/devops-metrics/project/${NEMO_PROJECT_ID}/environment/${NEMO_ENVIRONMENT_ID}/deployment/
+      --data "{ \"commit_hash\":\"$CI_COMMIT_SHA\" , \"status\":\"$DEPLOYMENT_STATUS\" }")
+    - cat response.txt && echo status_code:$NEMO_RESPONSE_CODE && if [[ $NEMO_RESPONSE_CODE != 201 ]]; then exit 1; fi
+  allow_failure: true

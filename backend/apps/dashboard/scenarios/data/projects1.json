@@ -1,0 +1,31 @@
+{
+    "proj0": {
+        "name": "project0",
+        "maturity_model": "Model 1",
+        "creator": "admin",
+        "environments": [
+            { "name": "staging" }
+        ],
+        "default_environment": "staging"
+    },
+   "proj1": {
+        "name": "project1",
+        "maturity_model": "Model 1",
+        "creator": "admin",
+        "environments": [
+            { "name": "production", "description": "our production." },
+            { "name": "staging" }
+        ],
+        "default_environment": "production"
+    },
+    "proj2": {
+        "name": "project2",
+        "maturity_model": "Model 1",
+        "creator": "admin",
+        "environments": [
+            { "name": "staging" },
+            { "name": "lab" }
+        ],
+        "default_environment": "lab"
+    }
+}

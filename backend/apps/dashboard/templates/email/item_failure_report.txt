@@ -1,0 +1,4 @@
+Item {{ maturity_model_item.code }} has been failed in project {{ project.title }}
+
+Project: {{ project.title }}
+Item: {{ maturity_model_item.name }}

@@ -1,0 +1,48 @@
+{
+    "proj-alpha": {
+        "name": "Alpha",
+        "maturity_model": "Qualitic Quality Maturity Model",
+        "creator": "admin",
+        "environments": [
+            { "name": "production" }
+        ],
+        "default_environment": "production",
+        "git_repo" : {
+            "git_http_url": "https://fake-gerrit-url.git",
+            "username": "fake_username",
+            "password": "fake_password",
+            "git_ecosystem": "GR",
+            "changelist_collection_enabled": true
+        }
+    },
+   "proj-beta": {
+        "name": "Beta",
+        "maturity_model": "Qualitic Quality Maturity Model",
+        "creator": "admin",
+        "environments": [
+            { "name": "production" },
+            { "name": "staging" }
+        ],
+        "default_environment": "production",
+        "git_repo" : {
+            "git_http_url": "https://fake-gitlab-url.git",
+            "git_ecosystem": "GL"
+        }
+    },
+    "proj-gama": {
+        "name": "Gama",
+        "maturity_model": "Qualitic Quality Maturity Model",
+        "creator": "admin",
+        "environments": [
+            { "name": "production" }
+        ],
+        "default_environment": "production",
+        "sonar_projects": [
+            {
+                "project_key": "fake-project",
+                "api_base_url": "https://sonarqube.com/api",
+                "auth_token": ""
+            }
+        ]
+    }
+}

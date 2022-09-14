@@ -1,0 +1,8 @@
+{{evaluation_request.title}} {{action}}.
+
+Project: {{ project.title }},
+Item: {{ maturity_model_item.title }},
+Applicant: {{ applicant.title }},
+Time: {{ time }},
+Status: {{ status }},
+Description: {{ description }}

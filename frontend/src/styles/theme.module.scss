@@ -1,0 +1,77 @@
+$color-too-light: #e2fdf7;
+$color-light: #27ecc3;
+$color: #12cea7;
+$color-dark: #0e9f81;
+$color-too-dark: #075041;
+
+$color_secondary: #ee723e;
+
+$white:    #ffffff !default;
+$gray-100: #f8f9fa !default;
+$gray-200: #e9ecef !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ced4da !default;
+$gray-500: #adb5bd !default;
+$gray-600: #6c757d !default;
+$gray-700: #495057 !default;
+$gray-800: #343a40 !default;
+$gray-900: #212529 !default;
+$black:    #000 !default;
+
+.bg_dark {
+    background-color: $color-dark;
+    color: $color-too-light;
+}
+
+.bg {
+    background-color: $color;
+    color: $color-too-dark;
+}
+
+.bg_light {
+    background-color: $color-too-light;
+    color: $color-dark;
+}
+
+.bg_gray_dark {
+    background-color: $gray-600;
+    color: $color;
+}
+
+.bg_gray {
+    background-color: $gray-400;
+    color: $color-dark;
+}
+
+.bg_gray_light {
+    background-color: $gray-200;
+    color: $color-too-dark;
+}
+
+.forecolor_dark {
+    color: $color-too-dark;
+}
+
+.forecolor {
+    color: $color-dark;
+}
+
+.forecolor_light {
+    color: $color-light;
+}
+
+.forecolor_gray_dark {
+    color: $gray-600;
+}
+
+.forecolor_gray {
+    color: $gray-400;
+}
+
+.forecolor_gray_light {
+    color: $gray-200;
+}
+
+.forecolor_secondary {
+    color: $color_secondary;
+}

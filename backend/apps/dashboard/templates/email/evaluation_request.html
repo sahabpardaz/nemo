@@ -1,0 +1,100 @@
+{% extends 'email/base.html' %}
+
+{% block content %}
+    <table border="0" cellpadding="0" cellspacing="0" class="divider"
+           role="presentation"
+           style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;"
+           valign="top" width="100%">
+        <tbody>
+        <tr style="vertical-align: top;" valign="top">
+            <td class="divider_inner"
+                style="word-break: break-word; vertical-align: top; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px;"
+                valign="top">
+                <table align="center" border="0" cellpadding="0" cellspacing="0"
+                       class="divider_content" height="40" role="presentation"
+                       style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-top: 0px solid transparent; height: 40px; width: 100%;"
+                       valign="top" width="100%">
+                    <tbody>
+                    <tr style="vertical-align: top;" valign="top">
+                        <td height="40"
+                            style="word-break: break-word; vertical-align: top; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;"
+                            valign="top"><span></span></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <!--[if mso]>
+    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+            <td style="padding-right: 10px; padding-left: 35px; padding-top: 15px; padding-bottom: 0px; font-family: Arial, sans-serif">
+    <![endif]-->
+    <div style="color:#000000;font-family:Nunito, Arial, Helvetica Neue, Helvetica, sans-serif;line-height:1.2;padding-top:15px;padding-right:10px;padding-bottom:0px;padding-left:35px;">
+        <div style="line-height: 1.2; font-size: 12px; color: #000000; font-family: Nunito, Arial, Helvetica Neue, Helvetica, sans-serif; mso-line-height-alt: 14px;">
+            <p style="font-size: 18px; line-height: 1.2; word-break: break-word; mso-line-height-alt: 22px; margin: 0;">
+                <span style="font-size: 18px;">
+                    <a href="{{ evaluation_request.admin_page_url }}">{{ evaluation_request.title }}</a> {{ action }}
+                </span>
+            </p>
+        </div>
+    </div>
+    <!--[if mso]></td></tr></table><![endif]-->
+    <!--[if mso]>
+    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+            <td style="padding-right: 10px; padding-left: 50px; padding-top: 10px; padding-bottom: 10px; font-family: Arial, sans-serif">
+    <![endif]-->
+    <div style="color:#676767;font-family:Nunito, Arial, Helvetica Neue, Helvetica, sans-serif;line-height:1.8;padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:50px;">
+        <div style="line-height: 1.8; font-size: 12px; color: #676767; font-family: Nunito, Arial, Helvetica Neue, Helvetica, sans-serif; mso-line-height-alt: 22px;">
+            <p style="font-size: 14px; line-height: 1.8; word-break: break-word; mso-line-height-alt: 25px; margin: 0;">
+                <strong>Project: </strong><a
+                    href="{{ project.dashboard_page_url }}">{{ project.title }}</a>
+            </p>
+            <p style="font-size: 14px; line-height: 1.8; word-break: break-word; mso-line-height-alt: 25px; margin: 0;">
+                <strong>Item: </strong><a
+                    href="{{ maturity_model_item.dashboard_page_url }}">{{ maturity_model_item.title }}</a>
+            </p>
+            <p style="font-size: 14px; line-height: 1.8; word-break: break-word; mso-line-height-alt: 25px; margin: 0;">
+                <strong>Applicant: </strong><a
+                    href="{{ applicant.admin_page_url }}">{{ applicant.title }}</a>
+            </p>
+            <p style="font-size: 14px; line-height: 1.8; word-break: break-word; mso-line-height-alt: 25px; margin: 0;">
+                <strong>Time: </strong>{{ time }}
+            </p>
+            <p style="font-size: 14px; line-height: 1.8; word-break: break-word; mso-line-height-alt: 25px; margin: 0;">
+                <strong>Status: </strong>{{ status }}
+            </p>
+            <p style="font-size: 14px; line-height: 1.8; word-break: break-word; mso-line-height-alt: 25px; margin: 0;">
+                <strong>Description: </strong>{{ description }}
+            </p>
+        </div>
+    </div>
+    <!--[if mso]></td></tr></table><![endif]-->
+    <table border="0" cellpadding="0" cellspacing="0" class="divider"
+           role="presentation"
+           style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;"
+           valign="top" width="100%">
+        <tbody>
+        <tr style="vertical-align: top;" valign="top">
+            <td class="divider_inner"
+                style="word-break: break-word; vertical-align: top; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px;"
+                valign="top">
+                <table align="center" border="0" cellpadding="0" cellspacing="0"
+                       class="divider_content" height="40" role="presentation"
+                       style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-top: 0px solid transparent; height: 40px; width: 100%;"
+                       valign="top" width="100%">
+                    <tbody>
+                    <tr style="vertical-align: top;" valign="top">
+                        <td height="40"
+                            style="word-break: break-word; vertical-align: top; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;"
+                            valign="top"><span></span></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+{% endblock %}

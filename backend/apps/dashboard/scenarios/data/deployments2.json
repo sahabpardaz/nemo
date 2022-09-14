@@ -1,0 +1,26 @@
+[
+    {
+        "environment": { "project": "Beta", "name": "production" },
+        "change_list_id": "cl1",
+        "status": "F",
+        "time": "2021-02-01T11:00:00.000000+03:30"
+    },
+    {
+        "environment": { "project": "Beta", "name": "production" },
+        "change_list_id": "cl1",
+        "status": "P",
+        "time": "2021-02-01T16:00:00.000000+03:30"
+    },
+    {
+        "environment": { "project": "Beta", "name": "production" },
+        "change_list_id": "cl2",
+        "status": "P",
+        "time": "2021-02-02T13:00:00.000000+03:30"
+    },
+    {
+        "environment": { "project": "Beta", "name": "production" },
+        "change_list_id": "cl3",
+        "status": "F",
+        "time": "2021-02-03T12:00:00.000000+03:30"
+    }
+]

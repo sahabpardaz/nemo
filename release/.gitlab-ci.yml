@@ -1,0 +1,52 @@
+variables:
+  NEMO_RELEASE_ENV_IMAGE: ${DOCKER_REGISTRY_SNAPSHOT_ADDRESS}/nemo-release-env:latest
+
+nemo:release:create-release-env-image:
+  extends: .nemo:scope
+  stage: build
+  tags:
+    - docker
+  image: docker/compose:debian-1.28.2
+  when: manual
+  script:
+    - cd nemo/release/
+    - echo $DOCKER_REGISTRY_PASS | docker login -u $DOCKER_REGISTRY_USER --password-stdin ${DOCKER_REGISTRY_SNAPSHOT_ADDRESS}
+    - docker build -t $NEMO_RELEASE_ENV_IMAGE .
+    - docker push $NEMO_RELEASE_ENV_IMAGE
+  only:
+    refs:
+      - master
+      - merge_requests
+
+nemo:release:create-package:
+  extends: .nemo:scope
+  stage: deploy
+  tags:
+    - docker
+  image: $NEMO_RELEASE_ENV_IMAGE
+  script:
+    - nemo/release/create-nemo-installation-package.sh ${DOCKER_REGISTRY_SNAPSHOT_ADDRESS} ${DOCKER_ARTIFACTS_TEMP_VERSION}
+  only:
+    refs:
+      - merge_requests
+
+nemo:release:release-package:
+  extends: .nemo:scope
+  stage: deploy
+  tags:
+    - docker
+  image: $NEMO_RELEASE_ENV_IMAGE
+  script:
+    - apt-get update
+    - apt-get install -y curl
+    - nemo/release/create-nemo-installation-package.sh ${DOCKER_REGISTRY_SNAPSHOT_ADDRESS} ${DOCKER_ARTIFACTS_TEMP_VERSION}
+    - export NEMO_ARCHIVE_NAME=nemo-$(nemo/version.sh).tar.gz
+    - mv nemo/release/nemo.tar.gz $NEMO_ARCHIVE_NAME
+    - .ci-cd-scripts/upload-artifact-to-nexus-repository.sh
+      "${CI_PROJECT_DIR}/$NEMO_ARCHIVE_NAME"
+      "${RAW_REPOSITORY}/nemo/releases/$NEMO_ARCHIVE_NAME"
+      --overwrite
+  when: manual
+  only:
+    refs:
+      - master

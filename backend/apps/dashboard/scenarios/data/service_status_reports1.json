@@ -1,0 +1,18 @@
+[
+    {
+        "environment": { "project": "project1", "name": "production" },
+        "status": "D"
+    },
+    {
+        "environment": { "project": "project1", "name": "staging" },
+        "status": "D"
+    },
+    {
+        "environment": { "project": "project1", "name": "production" },
+        "status": "U"
+    },
+    {
+        "environment": { "project": "project1", "name": "staging" },
+        "status": "U"
+    }
+]

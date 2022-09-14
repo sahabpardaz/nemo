@@ -1,0 +1,18 @@
+{
+    "adminUser1": {
+        "username": "admin",
+        "password": "iamgod",
+        "email": "admin@olymp.com",
+        "is_staff": true,
+        "is_superuser": true,
+        "first_name": "Admineh",
+        "last_name": "Adminian"
+    },
+    "ordinaryUser1": {
+        "username": "ordy",
+        "password": "mediocre",
+        "email": "ordy@earth.com",
+        "first_name": "Ordineh",
+        "last_name": "Ordinarian"
+    }
+}

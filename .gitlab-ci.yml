@@ -1,0 +1,331 @@
+include:
+  - local: 'nemo/ci-templates/.gitlab-ci-nemo-reporter.yml'
+  - local: 'nemo/release/.gitlab-ci.yml'
+
+.nemo:scope:
+  only:
+    changes:
+      - nemo/**/*
+
+  variables:
+    NEMO_IMAGE_WEB: "nemo-web"
+    NEMO_IMAGE_FRONTEND: "nemo-frontend"
+    DOCKER_ARTIFACTS_TEMP_VERSION: $CI_COMMIT_SHORT_SHA
+
+nemo:build:
+  extends: .nemo:scope
+  stage: build
+  tags:
+    - docker
+  image: docker/compose:debian-1.28.2
+  script:
+    - echo $DOCKER_REGISTRY_PASS | docker login -u $DOCKER_REGISTRY_USER --password-stdin ${DOCKER_REGISTRY_SNAPSHOT_ADDRESS}
+    - cd ${CI_PROJECT_DIR}/nemo
+    - docker-compose --env-file .env.ci --project-name ${CI_JOB_ID} build --parallel
+    - docker-compose --env-file .env.ci --project-name ${CI_JOB_ID} push
+  only:
+    refs:
+      - merge_requests
+      - master
+
+nemo:lint-frontend:
+  extends: .nemo:scope
+  stage: test
+  image: pipelinecomponents/eslint:a338b98
+  tags:
+    - docker
+  script:
+    - cd ${CI_PROJECT_DIR}/nemo/frontend
+    - eslint src
+  only:
+    refs:
+      - merge_requests
+      - master
+  needs: []
+
+nemo:test:
+  extends: .nemo:scope
+  stage: test
+  tags:
+    - docker
+  image: docker/compose:debian-1.28.2
+  script:
+    - nemo/.ci-scripts/run_commit_test.sh
+  after_script:
+    - cd ${CI_PROJECT_DIR}/nemo
+    - docker-compose --env-file .env.ci --project-name ${CI_JOB_ID} down --volumes
+  needs:
+    - nemo:build
+  only:
+    refs:
+      - merge_requests
+      - master
+  artifacts:
+    reports:
+      cobertura: ${CI_PROJECT_DIR}/nemo/backend/gitlab-coverage.xml
+      junit: ${CI_PROJECT_DIR}/nemo/backend/xunittest.xml
+      codequality: ${CI_PROJECT_DIR}/nemo/backend/pylint-report.json
+    paths:
+      - ${CI_PROJECT_DIR}/nemo/backend/xunittest.xml
+      - ${CI_PROJECT_DIR}/nemo/backend/coverage.xml
+      - ${CI_PROJECT_DIR}/nemo/backend/pylint-report.json
+    expire_in: 1 week
+
+nemo:check-migrations-being-committed:
+  extends: .nemo:scope
+  stage: test
+  tags:
+    - docker
+  image: docker/compose:debian-1.28.2
+  script:
+    - cd ${CI_PROJECT_DIR}/nemo
+    - ./.ci-scripts/copy_database_init_script.sh
+    - docker-compose --env-file .env.ci --project-name ${CI_JOB_ID}
+      run web bash -c "(/wait && python manage.py makemigrations --check --dry-run) ||
+      ( echo \"Missing migrations or another error happened during making migrations\" && exit 1 )"
+  after_script:
+    - cd ${CI_PROJECT_DIR}/nemo
+    - docker-compose --env-file .env.ci --project-name ${CI_JOB_ID} down --volumes
+
+  needs:
+    - nemo:build
+  only:
+    refs:
+      - merge_requests
+      - master
+  except:
+    variables:
+      - $CI_COMMIT_MESSAGE =~ /no-migrations-check/
+
+nemo:create-models-diagram:
+  extends: .nemo:scope
+  stage: test
+  tags:
+    - docker
+  image: docker/compose:debian-1.28.2
+  script:
+    - cd ${CI_PROJECT_DIR}/nemo
+    - CONTAINER_NAME=nemo-web-${CI_JOB_ID}
+    - docker-compose --env-file .env.ci --project-name ${CI_JOB_ID}
+      run --name ${CONTAINER_NAME} web bash -c "python manage.py graph_models -a -o models.png"
+    - docker cp ${CONTAINER_NAME}:/nemo/backend/models.png backend/models.png
+  after_script:
+    - cd ${CI_PROJECT_DIR}/nemo
+    - docker-compose --env-file .env.ci --project-name ${CI_JOB_ID} down --volumes
+  needs:
+    - nemo:build
+  only:
+    refs:
+      - master
+  artifacts:
+    paths:
+      - ${CI_PROJECT_DIR}/nemo/backend/models.png
+    expire_in: 1 week
+
+.nemo:release-docker:
+  extends: .nemo:scope
+  stage: release
+  tags:
+    - docker
+  image: docker/compose:debian-1.28.2
+  script:
+    - "[[ -z ${IMAGE_NAME} ]] && echo 'IMAGE_NAME not specified!' && exit 1"
+    - echo $DOCKER_REGISTRY_PASS | docker login -u $DOCKER_REGISTRY_USER --password-stdin ${DOCKER_REGISTRY_RELEASE_ADDRESS}
+    - docker pull "${DOCKER_REGISTRY_SNAPSHOT_ADDRESS}/${IMAGE_NAME}:${DOCKER_ARTIFACTS_TEMP_VERSION}"
+    - NEMO_VERSION=$(nemo/version.sh)
+    - docker tag "${DOCKER_REGISTRY_SNAPSHOT_ADDRESS}/${IMAGE_NAME}:${DOCKER_ARTIFACTS_TEMP_VERSION}"
+      "${DOCKER_REGISTRY_RELEASE_ADDRESS}/${IMAGE_NAME}:${NEMO_VERSION}"
+    - docker push "${DOCKER_REGISTRY_RELEASE_ADDRESS}/${IMAGE_NAME}:${NEMO_VERSION}"
+  only:
+    refs:
+      - master
+  except:
+    - schedules
+  needs:
+    - nemo:build
+    - job: nemo:test
+      artifacts: false
+    - nemo:check-migrations-being-committed
+    - nemo:lint-frontend
+
+nemo:release-backend-docker:
+  extends: .nemo:release-docker
+  before_script:
+    - IMAGE_NAME=${NEMO_IMAGE_WEB}
+
+nemo:release-frontend-docker:
+  extends: .nemo:release-docker
+  before_script:
+    - IMAGE_NAME=${NEMO_IMAGE_FRONTEND}
+
+nemo:upload-models-diagram-to-nexus:
+  extends: .nemo:scope
+  stage: release
+  tags:
+    - docker
+  image: cosmintitei/bash-curl:4
+  except:
+    - schedules
+  script:
+    - .ci-cd-scripts/upload-artifact-to-nexus-repository.sh
+      "${CI_PROJECT_DIR}/nemo/backend/models.png"
+      "${RAW_REPOSITORY}/nemo/models-diagram.png"
+      --overwrite
+  only:
+    refs:
+      - master
+  needs:
+    - nemo:create-models-diagram
+
+nemo:release-gitlab-ci-reporter:
+  extends: .nemo:scope
+  stage: release
+  tags:
+    - docker
+  image: cosmintitei/bash-curl:4
+  except:
+    - schedules
+  script:
+    - .ci-cd-scripts/upload-artifact-to-nexus-repository.sh
+      "${CI_PROJECT_DIR}/nemo/ci-templates/.gitlab-ci-nemo-reporter.yml"
+      "${RAW_REPOSITORY}/nemo/reporter/.gitlab-ci-nemo-reporter-$(/usr/local/bin/bash ${CI_PROJECT_DIR}/nemo/ci-templates/print-version).yml"
+  only:
+    refs:
+      - master
+    changes:
+      - nemo/ci-templates/.gitlab-ci-nemo-reporter.yml
+
+nemo:deploy-lab:
+  extends: .nemo:scope
+  stage: deploy
+  tags:
+    - docker
+  image: willhallonline/ansible:2.9-alpine-3.13
+  script:
+    - cd ${CI_PROJECT_DIR}/provisioning/
+    - ${CI_PROJECT_DIR}/.ci-cd-scripts/prepare-provisioning-environment.sh
+    - ansible-playbook playbooks/install/main.yml
+      --limit nemo_lab
+      --tags nemo-deploy
+      --extra-vars "nemo_version=${DOCKER_ARTIFACTS_TEMP_VERSION}"
+  when: manual
+  environment:
+    name: nemo-lab
+
+  only:
+    refs:
+      - merge_requests
+      - master
+  except:
+    - schedules
+  needs:
+    - nemo:build
+    - job: nemo:test
+      artifacts: false
+
+nemo-gitlab-ci-template:version-checker:
+  extends: .version-checker
+  variables:
+    MODULE_DIR: "nemo/ci-templates"
+    GET_VERSION_CMD: "${MODULE_DIR}/print-version"
+  only:
+    changes:
+      - nemo/ci-templates/.gitlab-ci-nemo-reporter.yml
+
+nemo-reporter:report-nemo-changelist:
+  tags:
+    - docker
+  image: cosmintitei/bash-curl:4
+  extends:
+    - .nemo-ci:report-changelist
+    - .nemo:scope
+  stage: pre-build
+  only:
+    refs:
+      - master
+
+nemo:build-and-release-t016-image:
+  tags:
+    - docker
+  image: docker:20.10.5
+  stage: release
+  variables:
+    IMAGE_NAME: ${DOCKER_REGISTRY_RELEASE_ADDRESS}/nemo-nemoyml-t016-env:latest
+  script:
+    - echo $DOCKER_REGISTRY_PASS | docker login -u $DOCKER_REGISTRY_USER --password-stdin ${DOCKER_REGISTRY_RELEASE_ADDRESS}
+    - docker build -t $IMAGE_NAME
+      --build-arg APT_PROXY
+      --build-arg DOCKER_REGISTRY_MIRROR
+      --build-arg SOCKS_PROXY=${SOCKS5_HOST}
+      nemo/.nemo-scripts/validate_t016/docker/
+    - docker push $IMAGE_NAME
+  only:
+    refs:
+      - master
+  except:
+    - schedules
+
+nemo:frontend-packages-security-scan:
+  tags:
+    - docker
+  image: node:16.0.0-alpine3.13
+  extends: .nemo:scope
+  stage: test
+  script:
+    - cd nemo/frontend
+    - npm audit --audit-level=high --production
+  only:
+    refs:
+      - master
+      - merge_requests
+  needs: []
+
+nemo:backend-packages-security-scan:
+  image: "${DOCKER_REGISTRY_SNAPSHOT_ADDRESS}/${NEMO_IMAGE_WEB}:${DOCKER_ARTIFACTS_TEMP_VERSION}"
+  tags:
+    - docker
+  extends: .nemo:scope
+  stage: test
+  script:
+    - cd ${CI_PROJECT_DIR}/nemo/backend
+    - HTTPS_PROXY=$SOCKS_PROXY safety check --full-report
+  only:
+    refs:
+      - master
+      - merge_requests
+  needs:
+    - nemo:build
+  allow_failure: true
+
+nemo:sonarqube_analysis:
+  extends: .nemo:scope
+  stage: analysis
+  tags:
+    - docker
+  image: ${DOCKER_REGISTRY_RELEASE_ADDRESS}/analysis-docker:0.4.1-cli4.6
+  needs:
+    - nemo:test
+  script:
+    - cd nemo/backend/
+    - sonar-scanner
+      -Dsonar.projectName=Nemo
+      -Dsonar.projectKey=Nemo
+      -Dsonar.sources=./apps/
+      -Dsonar.exclusions=xunittest.xml,coverage.xml
+      -Dsonar.coverage.exclusions=**/test*.py
+      -Dsonar.host.url=$SONARQUBE_URL
+      -Dsonar.login=$SONARQUBE_TOKEN
+      -Dsonar.python.coverage.reportPaths=coverage.xml
+      -Dsonar.python.xunit.reportPath=xunittest.xml
+      -Dsonar.projectVersion=${CI_COMMIT_SHORT_SHA}
+      $(if [ "$CI_COMMIT_BRANCH" != "$CI_DEFAULT_BRANCH" ]; then echo "-Dsonar.pullrequest.key=${CI_MERGE_REQUEST_IID} -Dsonar.pullrequest.branch=${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME} -Dsonar.pullrequest.base=${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}"; fi)
+  only:
+    refs:
+      - master
+      - merge_requests
+
+nemo:version-check:
+  extends: .version-checker
+  variables:
+    MODULE_DIR: "nemo"
+    GET_VERSION_CMD: "$MODULE_DIR/version.sh"

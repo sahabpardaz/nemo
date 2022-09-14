@@ -1,0 +1,1 @@
+from apps.dashboard.maturity_state_observer.projects_maturity_state_observer import ProjectsMaturityStateObserver

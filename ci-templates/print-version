@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -e
+readonly CWD=$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)
+
+VERSION=$(grep -h "VERSION" $CWD/.gitlab-ci-nemo-reporter.yml \
+    | awk -F": " '{print $2}' \
+    | sed 's/[",]//g')
+
+echo $VERSION

@@ -1,0 +1,5 @@
+libsasl2-dev
+python-dev
+libssl-dev
+git
+graphviz

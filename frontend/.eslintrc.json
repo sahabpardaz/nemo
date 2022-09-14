@@ -1,0 +1,16 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "parser": "babel-eslint",
+    "plugins": [
+        "react"
+    ],
+    "rules": {
+        "semi": [
+            "error",
+            "never"
+        ]
+    }
+}

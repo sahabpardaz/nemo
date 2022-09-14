@@ -1,0 +1,37 @@
+[
+    {
+        "project": "Beta",
+        "change_list_id": "cl1",
+        "title": "Changelist 1",
+        "commit_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "time": "2021-02-01T09:00:00.000000+03:30"
+    },
+    {
+        "project": "Beta",
+        "change_list_id": "cl2",
+        "title": "Changelist 2",
+        "commit_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "time": "2021-02-02T09:00:00.000000+03:30"
+    },
+    {
+        "project": "Beta",
+        "change_list_id": "cl3",
+        "title": "Changelist 3",
+        "commit_hash": "cccccccccccccccccccccccccccccccccccccccc",
+        "time": "2021-02-03T09:00:00.000000+03:30"
+    },
+    {
+        "project": "Beta",
+        "change_list_id": "cl4",
+        "title": "Changelist 4",
+        "commit_hash": "dddddddddddddddddddddddddddddddddddddddd",
+        "time": "2021-02-04T09:00:00.000000+03:30"
+    },
+    {
+        "project": "Beta",
+        "change_list_id": "cl5",
+        "title": "Changelist 5",
+        "commit_hash": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+        "time": "2021-02-05T09:00:00.000000+03:30"
+    }
+]

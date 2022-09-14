@@ -1,0 +1,44 @@
+[
+    {
+        "project": "Beta",
+        "coverage_type": "OVR",
+        "value": 5,
+        "creation_time": "2021-02-01T10:00:00.000000+03:30",
+        "last_update_time": "2021-02-01T10:00:00.000000+03:30"
+    },
+    {
+        "project": "Beta",
+        "coverage_type": "OVR",
+        "value": 30,
+        "creation_time": "2021-02-02T10:00:00.000000+03:30",
+        "last_update_time": "2021-02-02T10:00:00.000000+03:30"
+    },
+    {
+        "project": "Beta",
+        "coverage_type": "OVR",
+        "value": 55,
+        "creation_time": "2021-02-03T10:00:00.000000+03:30",
+        "last_update_time": "2021-02-03T09:00:00.000000+03:30"
+    },
+    {
+        "project": "Beta",
+        "coverage_type": "INC",
+        "value": 45,
+        "creation_time": "2021-02-01T11:00:00.000000+03:30",
+        "last_update_time": "2021-02-01T11:00:00.000000+03:30"
+    },
+    {
+        "project": "Beta",
+        "coverage_type": "INC",
+        "value": 40,
+        "creation_time": "2021-02-02T11:00:00.000000+03:30",
+        "last_update_time": "2021-02-02T11:00:00.000000+03:30"
+    },
+    {
+        "project": "Beta",
+        "coverage_type": "INC",
+        "value": 75,
+        "creation_time": "2021-02-03T11:00:00.000000+03:30",
+        "last_update_time": "2021-02-03T11:00:00.000000+03:30"
+    }
+]
